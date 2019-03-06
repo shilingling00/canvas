@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<img id="imgs" src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2573931025,4200334103&fm=26&gp=0.jpg" width="60" height="100" alt="">
+<canvas id="myCanvas" width="500px" height="400px" style="border:1px solid #cccccc;"></canvas>
+</body>
+</html>
+<script>
+    var myCanvas=document.getElementById('myCanvas');
+    var ctx=myCanvas.getContext('2d');
+    ctx.fillStyle='#c3e96c';
+    ctx.fillRect(0,0,150,75);//画长方形
+    ctx.moveTo(0,0);//画直线
+    ctx.lineTo(500,400);
+    ctx.stroke();
+
+    ctx.arc(250,100,50,0,2*Math.PI);//圆
+    ctx.stroke();
+
+    ctx.font='30px Arial';
+    ctx.fillText('canvas',0,100)//实心文本
+
+    ctx.font='30px Arial';
+    ctx.strokeText('canvas',0,200)//空心文本
+
+    var grd=ctx.createLinearGradient(0,300,150,300);//线性渐变
+    grd.addColorStop(0,'red');
+    grd.addColorStop(1,'white');
+    ctx.fillStyle=grd;
+    ctx.fillRect(0,300,100,100)
+    //context.createLinearGradient(x0,y0,x1,y1);
+    //x0	渐变开始点的 x 坐标
+    // y0	渐变开始点的 y 坐标
+    // x1	渐变结束点的 x 坐标
+    // y1	渐变结束点的 y 坐标
+
+    var grd=ctx.createRadialGradient(250,50,5,260,50,100);//径向/圆渐变
+    grd.addColorStop(0,'red');
+    grd.addColorStop(1,'white');
+    ctx.fillStyle=grd;
+    ctx.fillRect(200,10,350,80);
+    //context.createRadialGradient(x0,y0,r0,x1,y1,r1);
+    // x0	渐变的开始圆的 x 坐标
+    // y0	渐变的开始圆的 y 坐标
+    // r0	开始圆的半径
+    // x1	渐变的结束圆的 x 坐标
+    // y1	渐变的结束圆的 y 坐标
+    // r1	结束圆的半径
+
+
+    var imgs=document.getElementById('imgs');//把一幅图像放置到画布上
+    ctx.drawImage(imgs,10,10,60,100)
+
+</script>

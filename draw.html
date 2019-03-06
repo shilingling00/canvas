@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html,body{
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        #myCanvas{
+            border: 1px solid #000000;
+        }
+    </style>
+</head>
+<body>
+<canvas id="myCanvas">
+    抱歉，您的浏览器不支持canvas
+</canvas>
+</body>
+</html>
+<script>
+
+    let dragFlag=false;
+    let beginX=0,beginY=0;
+    let hue=0;
+    let context='';
+    let lineWidth=60;
+    let direction=true;
+
+    window.onload=function () {
+        var myCanvas=document.getElementById('myCanvas');
+        myCanvas.width=window.innerWidth;
+        myCanvas.height=window.innerHeight;
+        context=myCanvas.getContext('2d');
+
+        myCanvas.addEventListener('mousedown',beiginLocation);
+        myCanvas.addEventListener('mousemove',drawing);
+        myCanvas.addEventListener('mouseup',()=>dragFlag=false);
+        myCanvas.addEventListener('mouseout',()=>dragFlag=false);
+    }
+
+    function beiginLocation(e) {
+            beginX=e.offsetX,
+            beginY=e.offsetY;
+        dragFlag=true;
+    }
+    function drawing(e) {
+        if(dragFlag){
+            let moveX=e.offsetX,
+                moveY=e.offsetY;
+            if(hue<=360){
+                hue++
+            }else {
+                hue=0
+            }
+            context.strokeStyle=`hsl(${hue},100%,50%)`;
+
+            if(lineWidth>100||lineWidth<10){
+                direction=!direction
+            };
+            if(direction){
+                lineWidth++
+            }else {
+                lineWidth--
+            }
+            context.lineWidth=lineWidth;
+            context.lineCap='round';
+            context.lineJoin='round';
+
+            context.beginPath();
+            context.moveTo(beginX,beginY);
+            context.lineTo(moveX,moveY);
+            context.closePath();
+            [beginX,beginY]=[moveX,moveY];
+            context.stroke()
+        }else {
+            return
+        }
+
+    }
+</script>
